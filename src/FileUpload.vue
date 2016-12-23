@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form method="post" v-bind:action="uploadUrl">
+        <form method="post" v-bind:action="uploadUrl" v-on:submit="uploadFile" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="exampleInputFile">Choose File</label>
                 <input type="file" id="exampleInputFile"
@@ -37,6 +37,33 @@ export default {
 
     }
   },
+  methods: {
+    uploadFile : function(e){
+        var form = e.target;
+        var config = {
+                url: this.uploadUrl,
+                data: new FormData(form),
+                method: 'post',
+                processData: false,
+                contentType: false
+            };
+        var submitBtn = $(form).find('[type=submit]');
+        submitBtn.prop('disabled', true).val('Uploading...');
+        $.post(config).done(function (response) {
+            submitBtn.prop('disabled', false).val('Upload');
+            form.reset();
+            this.$emit('uploaded', response.data);
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        });
+
+        e.preventDefault();
+        return false;
+
+
+
+    }
+  },
   ready() {
   },
   init() {
@@ -49,11 +76,11 @@ export default {
   },
 
   watch: {
-  },
-
-  methods: {
   }
+
 }
+
+
 
 
 

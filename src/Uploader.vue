@@ -19,13 +19,24 @@ export default {
   data () {
     return {
       showModal :false,
+      items : []
+    }
+  },
+  events: {
+    'uploaded': function (data) {
+
+        this.items.push(data);
     }
   }
 }
 
 
 
+
+
 </script>
 
 <style>
+    a { cursor : pointer;}
+
 </style>

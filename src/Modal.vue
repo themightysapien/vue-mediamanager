@@ -10,25 +10,27 @@
 
                     <div class="modal-body">
                         <div>
-
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#upload" aria-controls="upload" role="tab"
-                                                                          data-toggle="tab">Upload</a></li>
-                                <li role="presentation"><a href="#lsit" aria-controls="list" role="tab"
-                                                           data-toggle="tab">Browse Library</a></li>
+                                <li class=""
+                                    v-bind:class="{ active: isView('uploader') }"
+                                    v-on:click="state.view='uploader'">
+                                    <a>Upload</a></li>
+                                <li
+                                        v-bind:class="{ active: isView('listing') }"
+                                        v-on:click="state.view='listing'">
+                                    <a>Browse Library</a></li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane active" id="upload">
+                                <div v-show="isView('uploader')" id="upload">
                                     <file-upload :name="this.$parent.name"
                                                  :multiple="this.$parent.multiple"
                                                  :upload-url="this.$parent.uploadUrl"
                                     ></file-upload>
                                 </div>
-                                <div role="tabpanel" class="tab-pane" id="profile">
+                                <div v-show="isView('listing')" id="profile">
 
                                 </div>
                             </div>
@@ -69,7 +71,13 @@ export default {
     methods :{
         getTitle (){
          return this.$parent.title != 'undefined' ? this.$parent.title : 'Uploader'
+        },
+        isView (view){
+            return this.state.view == view;
         }
+    },
+    computed : {
+
     }
 }
 
