@@ -49,10 +49,12 @@ export default {
             };
         var submitBtn = $(form).find('[type=submit]');
         submitBtn.prop('disabled', true).val('Uploading...');
+        var component = this;
         $.post(config).done(function (response) {
+
             submitBtn.prop('disabled', false).val('Upload');
             form.reset();
-            this.$emit('uploaded', response.data);
+            component.$emit('uploaded', response.data);
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
         });

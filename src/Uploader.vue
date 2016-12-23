@@ -22,8 +22,9 @@ export default {
       items : []
     }
   },
-  events: {
-    'uploaded': function (data) {
+  methods: {
+    uploaded (data){
+         console.log(this.items);
 
         this.items.push(data);
     }
@@ -34,9 +35,11 @@ export default {
 
 
 
+
 </script>
 
 <style>
     a { cursor : pointer;}
+
 
 </style>
