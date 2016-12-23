@@ -9,12 +9,37 @@
                     </div>
 
                     <div class="modal-body">
-                        <file-upload post-action="/post.method" put-action="/put.method"></file-upload>
+                        <div>
+
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a href="#upload" aria-controls="upload" role="tab"
+                                                                          data-toggle="tab">Upload</a></li>
+                                <li role="presentation"><a href="#lsit" aria-controls="list" role="tab"
+                                                           data-toggle="tab">Browse Library</a></li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane active" id="upload">
+                                    <file-upload :name="this.$parent.name"
+                                                 :multiple="this.$parent.multiple"
+                                                 :upload-url="this.$parent.uploadUrl"
+                                    ></file-upload>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="profile">
+
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
                     <div class="modal-footer">
 
-                        <button class="btn btn-danger pull-right" @click="$emit('close')">
+                        <button class="btn btn-default pull-right" @click="$emit('close')">
                             Close
                         </button>
                     </div>
@@ -28,9 +53,9 @@
 const UPLOADER = 'uploader';
 const LISTING = 'listing';
 import FileUpload from './FileUpload.vue';
-export default{
+export default {
     name : 'modal',
-    props : ['title', 'url'],
+    props : [],
     data(){
         return{
             state : {
@@ -43,10 +68,11 @@ export default{
     },
     methods :{
         getTitle (){
-         return this.title != 'undefined' ? this.title : 'Uploader'
+         return this.$parent.title != 'undefined' ? this.$parent.title : 'Uploader'
         }
     }
 }
+
 
 
 </script>
@@ -122,7 +148,7 @@ export default{
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 0px 0;
 }
 
 
@@ -148,6 +174,7 @@ export default{
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 
 
 

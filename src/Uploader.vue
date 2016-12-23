@@ -2,7 +2,7 @@
     <div>
         <a class="btn btn-primary" v-on:click="showModal = true">Click To Upload</a>
 
-        <modal v-if="showModal" @close="showModal = false" title="Uploader"></modal>
+        <modal v-if="showModal" @close="showModal = false"></modal>
     </div>
 
 </template>
@@ -15,10 +15,9 @@ export default {
   components : {
     Modal
   },
-  props : ['title', 'url'],
+  props : ['title', 'uploadUrl', 'name', 'multiple'],
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
       showModal :false,
     }
   }
