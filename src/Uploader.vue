@@ -2,7 +2,7 @@
     <div>
         <a class="btn btn-primary" v-on:click="toggleModal()">Click To Upload</a>
 
-        <modal v-if="showModal" @close="showModal = false"></modal>
+        <modal v-if="showModal" @close="toggleModal()"></modal>
     </div>
 
 </template>
