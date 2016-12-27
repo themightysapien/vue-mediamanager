@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a class="btn btn-primary" v-on:click="showModal = true">Click To Upload</a>
+        <a class="btn btn-primary" v-on:click="toggleModal()">Click To Upload</a>
 
         <modal v-if="showModal" @close="showModal = false"></modal>
     </div>
@@ -18,18 +18,30 @@ export default {
   props : ['title', 'uploadUrl', 'name', 'multiple'],
   data () {
     return {
-      showModal :false,
-      items : []
+
     }
   },
-  methods: {
-    uploaded (data){
+  computed: {
+    showModal : function(){
+        return this.$store.state.showModal
+        /*doneTodosCount () {
+            return this.$store.getters.doneTodosCount
+        }*/
+    }
+
+    /*uploaded (data){
          console.log(this.items);
 
         this.items.push(data);
+    }*/
+  },
+  methods : {
+    toggleModal (){
+        this.$store.commit('changeModalState');
     }
   }
 }
+
 
 
 
@@ -40,6 +52,7 @@ export default {
 
 <style>
     a { cursor : pointer;}
+
 
 
 </style>

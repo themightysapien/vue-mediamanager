@@ -5,7 +5,7 @@
                 <div class="modal-container">
 
                     <div class="modal-header">
-                        <h3>{{ getTitle() }}</h3>
+                        <h3>{{ getTitle }}</h3>
                     </div>
 
                     <div class="modal-body">
@@ -14,11 +14,11 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class=""
                                     v-bind:class="{ active: isView('uploader') }"
-                                    v-on:click="state.view='uploader'">
+                                    v-on:click="changeModalView('uploader')">
                                     <a>Upload</a></li>
                                 <li
                                         v-bind:class="{ active: isView('listing') }"
-                                        v-on:click="state.view='listing'">
+                                        v-on:click="changeModalView('listing')">
                                     <a>Browse Library</a></li>
                             </ul>
 
@@ -52,32 +52,28 @@
 
 </template>
 <script>
-const UPLOADER = 'uploader';
-const LISTING = 'listing';
+
 import FileUpload from './FileUpload.vue';
+import { mapGetters } from 'vuex'
 export default {
     name : 'modal',
     props : [],
-    data(){
-        return{
-            state : {
-                view : UPLOADER
-            }
-        }
-    },
     components:{
         FileUpload
     },
-    methods :{
+    methods : {
+        changeModalView (view){
+            this.$store.commit('changeModalView', view);
+        },
+        isView (view){
+            return this.$store.state.view == view;
+        }
+
+    },
+    computed : {
         getTitle (){
          return this.$parent.title != 'undefined' ? this.$parent.title : 'Uploader'
         },
-        isView (view){
-            return this.state.view == view;
-        }
-    },
-    computed : {
-
     }
 }
 
